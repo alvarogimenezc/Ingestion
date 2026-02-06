@@ -7,8 +7,3 @@ app = flask.Flask(__name__)
 @app.route('/ingestion', methods=['POST'])
 def ruta1():
     
-
-
-#Ruta2
-#Ruta3
-#Ruta4
