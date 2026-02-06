@@ -6,14 +6,14 @@ import os
 
 # --- CONFIGURACIÓN ---
 TIENDAS = [
-    {"nombre": "SuperMercado Central", "direccion": "Av. Principal 123, Centro"},
-    {"nombre": "MiniMarket Express", "direccion": "Calle Secundaria 456, Norte"},
-    {"nombre": "Tienda 24/7", "direccion": "Boulevard Comercial 789, Sur"},
-    {"nombre": "Abarrotes Don Pepe", "direccion": "Plaza Mayor 101, Este"},
-    {"nombre": "Bodega La Esquina", "direccion": "Calle Flores 202, Oeste"},
+    {"nombre": "SuperMercado Central", "direccion": "Calle Colón 25, Valencia"},
+    {"nombre": "MiniMarket Express", "direccion": "Av. del Puerto 128, Valencia"},
+    {"nombre": "Tienda 24/7", "direccion": "Gran Vía Marqués del Turia 56, Valencia"},
+    {"nombre": "Ultramarinos Don José", "direccion": "Calle de la Paz 42, Valencia"},
+    {"nombre": "Bodega La Esquina", "direccion": "Av. Blasco Ibáñez 73, Valencia"},
 ]
 CARPETA_SALIDA = "facturas_generadas"
-INTERVALO_MINUTOS = 15
+INTERVALO_MINUTOS = 10
 
 def crear_carpeta_si_no_existe(carpeta):
     """Crea el directorio de salida si no existe."""
@@ -27,26 +27,21 @@ def generar_factura_final():
     """
     # 1. Datos Dinámicos
     id_factura = random.randint(100000, 999999)
-    fecha_actual = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    momento_compra = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
     # Seleccionar tienda aleatoria
     tienda = random.choice(TIENDAS)
 
-    # Aleatorizamos si se puede devolver o no en cada venta
-    admite_devolucion = random.choice([True, False])
+    # Precio aleatorio entre 1 y 500 euros
+    precio = round(random.uniform(1.00, 500.00), 2)
 
     # 2. Estructura JSON
     datos_factura = {
         "id": id_factura,
-        "encabezado": {
-            "tienda": tienda["nombre"],
-            "direccion": tienda["direccion"],
-            "fecha_emision": fecha_actual
-        },
-        "condiciones": {
-            "admite_devolucion": admite_devolucion,
-            "texto_legal": "Devolución permitida en 15 días" if admite_devolucion else "Venta final, sin devoluciones"
-        }
+        "tienda": tienda["nombre"],
+        "direccion": tienda["direccion"],
+        "precio": precio,
+        "momento_compra": momento_compra
     }
     
     # 3. Guardado del archivo
@@ -56,7 +51,7 @@ def generar_factura_final():
     try:
         with open(ruta_completa, "w", encoding="utf-8") as archivo:
             json.dump(datos_factura, archivo, indent=4, ensure_ascii=False)
-        return nombre_archivo, fecha_actual
+        return nombre_archivo, momento_compra
     except Exception as e:
         print(f"Error al escribir archivo: {e}")
         return None, None
