@@ -19,7 +19,7 @@ def crear_carpeta_si_no_existe(carpeta):
     """Crea el directorio de salida si no existe."""
     if not os.path.exists(carpeta):
         os.makedirs(carpeta)
-        print(f"📁 Carpeta creada: {carpeta}")
+        print(f" Carpeta creada: {carpeta}")
 
 def generar_factura_final():
     """
@@ -58,7 +58,7 @@ def generar_factura_final():
             json.dump(datos_factura, archivo, indent=4, ensure_ascii=False)
         return nombre_archivo, fecha_actual
     except Exception as e:
-        print(f"❌ Error al escribir archivo: {e}")
+        print(f"Error al escribir archivo: {e}")
         return None, None
 
 # --- BUCLE PRINCIPAL ---
@@ -67,11 +67,11 @@ if __name__ == "__main__":
     
     segundos_espera = INTERVALO_MINUTOS * 60
     
-    print(f"--- 🤖 INICIANDO SISTEMA DE FACTURACIÓN ---")
-    print(f"📌 Tiendas disponibles: {len(TIENDAS)}")
-    print(f"⏱️  Frecuencia: Una factura cada {INTERVALO_MINUTOS} minutos")
-    print(f"📂 Guardando en: ./{CARPETA_SALIDA}/")
-    print("🔴 Presiona CTRL + C para detener el programa.\n")
+    print(f"INICIANDO SISTEMA DE FACTURACIÓN AUTOMÁTICA")
+    print(f"Tiendas disponibles: {len(TIENDAS)}")
+    print(f"Frecuencia: Una factura cada {INTERVALO_MINUTOS} minutos")
+    print(f"Guardando en: ./{CARPETA_SALIDA}/")
+    print("Presiona CTRL + C para detener el programa.\n")
 
     try:
         while True:
@@ -79,11 +79,11 @@ if __name__ == "__main__":
             archivo, hora = generar_factura_final()
             
             if archivo:
-                print(f"[{hora}] ✅ Factura creada: {archivo}")
+                print(f"[{hora}] Factura creada: {archivo}")
             
             # Cuenta regresiva simple para feedback visual
-            print(f"💤 Durmiendo... Próxima factura en {INTERVALO_MINUTOS} minutos.")
+            print(f"Esperando... Próxima factura en {INTERVALO_MINUTOS} minutos.")
             time.sleep(segundos_espera)
 
     except KeyboardInterrupt:
-        print("\n\n🛑 Ejecución detenida por el usuario. ¡Hasta pronto!") 
+        print("\n\nEjecución detenida por el usuario. ¡Hasta pronto!") 
