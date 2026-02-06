@@ -7,8 +7,10 @@ FLASK_API_URL = "http://flask:5000/ingestion"
 #Generador tickets automáticos 
 while True:
 
+    tiendas= ["Recambios Moratalla", "Tienda de Electrónica", "Supermercado El Ahorro", "Librería El Saber", "Ropa y Moda"]
+
     ticket= {"id": random.randint(1, 1000),
-        "date": "2024-06-01",
+        "timestamp": "2024-06-01 11:00:00",
         "adress": "Calle Falsa 123",
         "nombre tienda": "Recambios Moratalla", 
         "importe": round(random.uniform(10.0, 100.0), 2),
